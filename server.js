@@ -16,7 +16,8 @@ const connectDB = require("./config/db");
 dotenv.config({ path: "./config/config.env" });
 
 // we call the function imported above to connect
-connectDB();
+// [ this is commented out because of CYCLIC hosting]
+// connectDB();
 
 const transactions = require("./routes/transactionsRoute");
 
@@ -47,9 +48,20 @@ if (process.env.NODE_ENV === "production") {
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(
-  PORT,
-  console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  )
-);
+// [ this is commented out because of CYCLIC HOSTING]
+// app.listen(
+//   PORT,
+//   console.log(
+//     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+//   )
+// );
+
+connectDB().then(() => {
+  app.listen(
+    PORT,
+    console.log(
+      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
+        .bold
+    )
+  );
+});
